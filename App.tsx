@@ -36,7 +36,7 @@ const SwipeableCard: React.FC<{
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl mb-4">
+    <div className="relative overflow-hidden rounded-2xl mb-4 w-full">
       <div className="swipe-delete-bg">
         <i className="fa-solid fa-trash-can text-white text-2xl"></i>
       </div>
@@ -46,7 +46,7 @@ const SwipeableCard: React.FC<{
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         onClick={(e) => { if (offsetX === 0) onTap(); }}
-        className={`duo-card relative z-10 flex items-center p-4 rounded-2xl cursor-pointer ${isDeleting ? 'opacity-0 scale-95' : 'opacity-100'} transition-all select-none`}
+        className={`duo-card relative z-10 flex items-center p-4 rounded-2xl cursor-pointer ${isDeleting ? 'opacity-0 scale-95' : 'opacity-100'} transition-all select-none w-full`}
       >
         <div className={`${item.color} w-16 h-16 rounded-2xl flex items-center justify-center text-white text-3xl shadow-sm border-b-4 border-black/20`}>
           <i className={`fa-solid ${item.icon}`}></i>
@@ -154,22 +154,22 @@ const App: React.FC = () => {
   const totalBill = items.reduce((acc, item) => acc + (item.count * item.price), 0);
 
   const renderDashboard = () => (
-    <div className="flex flex-col gap-6 p-6 pb-36 min-h-screen bg-[#131f24] animate-in fade-in duration-500">
+    <div className="flex flex-col gap-6 p-6 pb-36 min-h-screen bg-[#131f24] animate-in fade-in duration-500 w-full overflow-y-auto">
       <header className="flex justify-between items-start mb-4">
         <div>
           <h1 className="text-5xl font-black text-white tracking-tighter mb-1">Lori</h1>
           <p className="text-[#8495a0] font-bold text-sm">Controle divertido de gastos.</p>
         </div>
         <div className="bg-[#1cb0f6] text-white px-5 py-3 rounded-2xl shadow-lg border-b-4 border-[#1899d6] flex flex-col items-end">
-           <span className="text-[10px] font-black uppercase opacity-70 tracking-widest">Total</span>
+           <span className="text-[10px] font-black uppercase opacity-70 tracking-widest leading-none mb-1">Total</span>
            <span className="font-black text-2xl">R$ {totalBill.toFixed(2)}</span>
         </div>
       </header>
 
-      <div className="flex-1">
+      <div className="flex-1 w-full">
         {items.length === 0 ? (
-          <div className="text-center py-24 opacity-30">
-             <i className="fa-solid fa-ghost text-7xl mb-6"></i>
+          <div className="text-center py-24 opacity-30 w-full">
+             <i className="fa-solid fa-mug-hot text-7xl mb-6"></i>
              <p className="font-bold text-xl">Sua lista está vazia.<br/>Toque no "+" para criar!</p>
           </div>
         ) : (
@@ -184,7 +184,7 @@ const App: React.FC = () => {
         )}
       </div>
 
-      <div className="fixed bottom-0 left-0 right-0 p-6 bg-[#131f24]/90 backdrop-blur-md border-t-2 border-[#37464f] flex gap-3 z-30">
+      <div className="fixed bottom-0 left-0 right-0 p-6 pb-8 bg-[#131f24]/90 backdrop-blur-md border-t-2 border-[#37464f] flex gap-3 z-30">
         <DuoButton 
           className="flex-1" 
           onClick={handleGenerateSummary}
@@ -217,7 +217,7 @@ const App: React.FC = () => {
     if (!currentItem) return null;
 
     return (
-      <div className="flex flex-col h-screen p-6 bg-[#131f24] text-white animate-in slide-in-from-right duration-300">
+      <div className="flex flex-col h-screen p-6 bg-[#131f24] text-white animate-in slide-in-from-right duration-300 w-full overflow-hidden">
         <div className="flex justify-between items-center mb-8">
           <button 
             onClick={() => setView('dashboard')}
@@ -234,7 +234,7 @@ const App: React.FC = () => {
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col items-center justify-center gap-12">
+        <div className="flex-1 flex flex-col items-center justify-center gap-12 w-full">
           <div className={`${currentItem.color} w-48 h-48 rounded-[3.5rem] flex items-center justify-center text-white text-8xl shadow-2xl border-b-8 border-black/20`}>
             <i className={`fa-solid ${currentItem.icon}`}></i>
           </div>
@@ -302,7 +302,7 @@ const App: React.FC = () => {
   };
 
   const renderAddItem = () => (
-    <div className="flex flex-col h-screen p-6 bg-[#131f24] text-white animate-in slide-in-from-bottom duration-300 overflow-y-auto">
+    <div className="flex flex-col h-screen p-6 bg-[#131f24] text-white animate-in slide-in-from-bottom duration-300 overflow-y-auto w-full">
       <div className="flex justify-between items-center mb-8">
         <button 
           onClick={() => setView('dashboard')}
@@ -314,7 +314,7 @@ const App: React.FC = () => {
         <div className="w-12"></div>
       </div>
 
-      <div className="space-y-8 flex-1">
+      <div className="space-y-8 flex-1 w-full">
         <div className="space-y-2">
           <label className="text-sm font-black text-[#8495a0] uppercase ml-1 tracking-widest">O que você vai consumir?</label>
           <input 
@@ -337,7 +337,7 @@ const App: React.FC = () => {
           />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 w-full">
           <label className="text-sm font-black text-[#8495a0] uppercase ml-1 tracking-widest">Escolha um Ícone</label>
           <div className="grid grid-cols-5 gap-4">
             {AVAILABLE_ICONS.map((item, idx) => (
@@ -353,7 +353,7 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      <div className="mt-8 pb-6">
+      <div className="mt-8 pb-10 w-full">
         <DuoButton 
           className="w-full py-5 text-xl" 
           onClick={handleAddNewItem}
@@ -367,7 +367,7 @@ const App: React.FC = () => {
   );
 
   const renderRecap = () => (
-    <div className="flex flex-col min-h-screen p-6 bg-[#1cb0f6] text-white animate-in fade-in duration-500">
+    <div className="flex flex-col min-h-screen p-6 bg-[#1cb0f6] text-white animate-in fade-in duration-500 w-full overflow-y-auto">
       <div className="flex justify-between items-center mb-10">
         <button onClick={() => setView('dashboard')} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white/20 text-white">
           <i className="fa-solid fa-xmark text-xl"></i>
@@ -376,7 +376,7 @@ const App: React.FC = () => {
         <div className="w-12 h-12"></div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center">
+      <div className="flex-1 flex flex-col items-center w-full">
         <div className="mb-10 relative">
            <div className="w-48 h-48 bg-white rounded-[3rem] flex items-center justify-center shadow-2xl border-b-8 border-gray-200">
               <i className="fa-solid fa-face-grin-stars text-8xl text-[#ffc800]"></i>
@@ -414,14 +414,14 @@ const App: React.FC = () => {
         </div>
       </div>
 
-      <DuoButton className="w-full py-5 text-xl mb-6" color="bg-[#58cc02]" onClick={() => setView('dashboard')}>
+      <DuoButton className="w-full py-5 text-xl mb-10" color="bg-[#58cc02]" onClick={() => setView('dashboard')}>
         Continuar a Farra!
       </DuoButton>
     </div>
   );
 
   return (
-    <main className="max-w-md mx-auto min-h-screen bg-[#131f24] text-white shadow-2xl overflow-hidden">
+    <main className="min-h-screen bg-[#131f24] text-white flex-1 flex flex-col w-full overflow-hidden">
       {view === 'dashboard' && renderDashboard()}
       {view === 'counter' && renderCounter()}
       {view === 'recap' && renderRecap()}
